@@ -13,11 +13,3 @@ CREATE TABLE users(
   politically_exposed BOOLEAN NOT NULL,
   balance NUMERIC(2) NOT NULL DEFAULT 0.00
 );
-
-CREATE TABLE orders(
-  id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4() PRIMARY KEY,
-  user_id UUID,
-  price DECIMAL NOT NULL,
-  finished BOOLEAN,
-  FOREIGN KEY(user_id) REFERENCES users(id)
-);
