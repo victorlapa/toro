@@ -5,9 +5,10 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE users(
   id UUID NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
   name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL, 
   cpf CHAR(11) NOT NULL,
-  salary INT NOT NULL,
+  salary DECIMAL NOT NULL,
   gender CHAR(1) NOT NULL,
   politically_exposed BOOLEAN NOT NULL,
   balance NUMERIC(2) NOT NULL DEFAULT 0.00
@@ -16,8 +17,7 @@ CREATE TABLE users(
 CREATE TABLE orders(
   id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4() PRIMARY KEY,
   user_id UUID,
-  price INT NOT NULL,
+  price DECIMAL NOT NULL,
   finished BOOLEAN,
   FOREIGN KEY(user_id) REFERENCES users(id)
 );
-

@@ -11,6 +11,10 @@
         "sourceType": "module"
     },
     "rules": {
-      "class-methods-use-this": "off"
+      "class-methods-use-this": "off",
+      "consistent-return": "off",
+      "no-useless-escape": "off",
+      "camelcase": "off",
+      "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
     }
 }
