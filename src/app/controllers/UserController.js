@@ -64,6 +64,10 @@ class UserController {
       return response.status(400).json({ error: 'Politically exposed must be true or false' });
     }
 
+    if (typeof (salary) !== 'number') {
+      return response.status(400).json({ error: 'Salary must be a number' });
+    }
+
     const user = await UsersRepository.register({
       name, email, password, cpf, salary, gender, politically_exposed,
     });
@@ -116,6 +120,10 @@ class UserController {
 
     if (typeof (politically_exposed) !== 'boolean') {
       return response.status(400).json({ error: 'Politically exposed must be true or false' });
+    }
+
+    if (typeof (salary) !== 'number') {
+      return response.status(400).json({ error: 'Salary must be a number' });
     }
 
     const user = UsersRepository
