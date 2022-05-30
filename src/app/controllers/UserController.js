@@ -1,9 +1,31 @@
+/* eslint-disable no-plusplus */
 const UsersRepository = require('../repositories/UsersRepository');
 
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/g;
 const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
 const cpfRegex = /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/g;
 const numbersRegex = /\d/;
+
+function verifyCPF(strCPF) {
+  let sum;
+  let rest;
+  sum = 0;
+  if (strCPF === '00000000000') return false;
+
+  for (let i = 1; i <= 9; i++) sum += parseInt(strCPF.substring(i - 1, i), 10) * (11 - i);
+  rest = (sum * 10) % 11;
+
+  if ((rest === 10) || (rest === 11)) rest = 0;
+  if (rest !== parseInt(strCPF.substring(9, 10), 10)) return false;
+
+  sum = 0;
+  for (let i = 1; i <= 10; i++) sum += parseInt(strCPF.substring(i - 1, i), 10) * (12 - i);
+  rest = (sum * 10) % 11;
+
+  if ((rest === 10) || (rest === 11)) rest = 0;
+  if (rest !== parseInt(strCPF.substring(10, 11), 10)) return false;
+  return true;
+}
 
 class UserController {
   async index(request, response) {
@@ -66,6 +88,10 @@ class UserController {
 
     if (typeof (salary) !== 'number') {
       return response.status(400).json({ error: 'Salary must be a number' });
+    }
+
+    if (!verifyCPF(cpf)) {
+      return response.status(400).json({ error: 'Invalid cpf' });
     }
 
     const user = await UsersRepository.register({

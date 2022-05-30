@@ -29,7 +29,7 @@ Verificações feitas:
 Nomes devem conter duas palavras e não podem conter números
 Email deve seguir o formato <>@<>.<>
 Senhas dever conter pelo menos 8 caracteres com 1 letra 1 numero e 1 simbolo
-CPF devem ser 11 números
+CPF devem ser 11 números e deve ser válido
 Salário deve ser um número
 Gênero deve ser "M", "F" ou "O"
 Politicamente exposto deve ser true ou false
